@@ -42,6 +42,13 @@ dependencies {
 
 	implementation 'org.springframework.security:spring-security-oauth2-jose'
 
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+	implementation 'io.github.resilience4j:resilience4j-spring-boot3'
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
+
 
 	// in memory database, for testing only
 	implementation 'com.h2database:h2'

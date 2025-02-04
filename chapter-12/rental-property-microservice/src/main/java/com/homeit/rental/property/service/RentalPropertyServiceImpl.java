@@ -2,6 +2,7 @@ package com.homeit.rental.property.service;
 
 import com.homeit.rental.property.dto.RentalPropertyDTO;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,7 @@ public class RentalPropertyServiceImpl
     }
 
     @Override
+    @Cacheable(value = "properties", key = "#id")
     public Optional<RentalPropertyDTO> get(UUID id) {
         return Optional.ofNullable(rentalProperties.get(id));
     }
@@ -47,6 +49,7 @@ public class RentalPropertyServiceImpl
     }
 
     @Override
+    @Cacheable(value = "properties", key = "#id")
     public Optional<RentalPropertyDTO> update(
             UUID id,
             RentalPropertyDTO updatedProperty) {
@@ -66,6 +69,7 @@ public class RentalPropertyServiceImpl
     }
 
     @Override
+    @Cacheable(value = "properties", key = "#id")
     public Optional<RentalPropertyDTO> updateSomeFields(UUID id, RentalPropertyDTO partialUpdate) {
         return Optional.ofNullable(
                 rentalProperties.computeIfPresent(id, (updatedId, existingProperty) -> {
@@ -83,6 +87,7 @@ public class RentalPropertyServiceImpl
     }
 
     @Override
+    @Cacheable(value = "properties", key = "#id")
     public Optional<RentalPropertyDTO> delete(UUID id, String authorizedUser) {
         if(!rentalProperties.get(id).landlordID().toString().equals(authorizedUser)) {
             return Optional.empty();
