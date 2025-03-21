@@ -49,7 +49,7 @@ public class RentalPropertyServiceImpl
     }
 
     @Override
-    @Cacheable(value = "properties", key = "#id")
+    @CacheEvict(value = "properties", key = "#id")
     public Optional<RentalPropertyDTO> update(
             UUID id,
             RentalPropertyDTO updatedProperty) {
@@ -69,7 +69,7 @@ public class RentalPropertyServiceImpl
     }
 
     @Override
-    @Cacheable(value = "properties", key = "#id")
+    @CacheEvict(value = "properties", key = "#id")
     public Optional<RentalPropertyDTO> updateSomeFields(UUID id, RentalPropertyDTO partialUpdate) {
         return Optional.ofNullable(
                 rentalProperties.computeIfPresent(id, (updatedId, existingProperty) -> {
@@ -87,7 +87,7 @@ public class RentalPropertyServiceImpl
     }
 
     @Override
-    @Cacheable(value = "properties", key = "#id")
+    @CacheEvict(value = "properties", key = "#id")
     public Optional<RentalPropertyDTO> delete(UUID id, String authorizedUser) {
         if(!rentalProperties.get(id).landlordID().toString().equals(authorizedUser)) {
             return Optional.empty();
